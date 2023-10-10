@@ -10,17 +10,17 @@ if __name__ == '__main__':
     s = Service(executable_path='./drivers/chromedriver')
     driver = webdriver.Chrome(service=s)
     driver.maximize_window()
-    # Random Selection of City and Cinema Complex
+
     mainPage = CinepolisHome(driver)
     mainPage.load()
     mainPage.cities()
     mainPage.complexes()
-    # Random Selection of Movie and Movie Schedule
+
     movieSelect = MoviesPage(driver)
     movieSelect.program()
 
     try:
-        element = WebDriverWait(driver, 120).until(
+        element = WebDriverWait(driver, 1000).until(
             EC.text_to_be_present_in_element((By.XPATH, '//*[@id="root"]/div[1]/section/section/div/div/div[1]/h3'), 'Selecciona tus boletos')
         )
 
