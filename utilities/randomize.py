@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from random import choice, randint
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import random
 
 
@@ -28,4 +30,26 @@ def randomizeMH(driver): #Randomize the Movie and Hour
     if filtered_links:
         random_index = random.randint(0, len(links) - 1)
         selected_link = links[random_index]
-        selected_link.click()
+        #selected_link.click()
+
+    for attempt in range(len(links)):
+        try:
+            element = WebDriverWait(driver, .1).until(EC.element_to_be_clickable(selected_link))
+            element.click()
+            break
+
+        except Exception as e:
+            print(f"Attempt {attempt + 1}: No clickable button")
+
+    ad_element = (By.ID, 'dismiss-button')
+
+    try:
+        ad = WebDriverWait(driver, 30).until(EC.visibility_of_element_located(ad_element))
+
+        if ad.is_displayed():
+            ad.click()
+        else:
+            print("The element is not visible after waiting.")
+            pass
+    except:
+        pass

@@ -19,8 +19,9 @@ if __name__ == '__main__':
     movieSelect = MoviesPage(driver)
     movieSelect.program()
 
+
     try:
-        element = WebDriverWait(driver, 1000).until(
+        element = WebDriverWait(driver, 20).until(
             EC.text_to_be_present_in_element((By.XPATH, '//*[@id="root"]/div[1]/section/section/div/div/div[1]/h3'), 'Selecciona tus boletos')
         )
 
